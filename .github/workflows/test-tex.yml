@@ -1,0 +1,22 @@
+name: Build LaTeX document
+on:
+    push:
+      branches: [ main ]
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      
+      - name: 编译幻灯片Latex
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: slide.tex
+          latexmk_use_xelatex: true
+
+      - name: 上传幻灯片PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: 幻灯片pdf
+          path: ./slide.pdf
